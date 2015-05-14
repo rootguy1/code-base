@@ -1,11 +1,7 @@
 #!/usr/bin/python
 import os,sys
 # check_load_relative.py
-# Author: Imran Ahmed <researcher6@live.com>
-# Website : http://www.experthelpme.com
-# Last Release Date : 10-MAY-2015
-# Version: 1.0
-
+# Author: Imran Ahmed
 # Desciption : This scrips displays the relative load for system with multi core cpus.
 
 
