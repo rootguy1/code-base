@@ -1,0 +1,31 @@
+---
+# Ansible playbook `cve_2014_0160.yml` that upgrades the
+# `openssl` package to the fixed version.  Only computers where `openssl` is
+# already installed should be upgraded.
+
+- hosts: all
+
+  tasks:
+    
+    - name: "Install Openssl to address heartblead issue"
+      apt: pkg="{{ item }}" state=latest update_cache=yes
+      with_items:
+        - openssl.1.0.1-4ubuntu5.12
+        - libssl1
+      when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '12.04 LTS'  
+     
+       
+      apt: pkg="{{ item }}" state=latest update_cache=yes
+      with_items:
+        - openssl.1.0.1e-2+deb7u5
+        - libssl1
+      when: ansible_distribution == 'Debian' and ansible_distribution_release == 'wheezy'   
+
+
+      apt: pkg="{{ item }}" state=latest update_cache=yes
+      with_items:
+        - openssl.1.0.1g-1
+        - libssl1
+      when: ansible_distribution == 'Debian' and ansible_distribution_release == 'jessie'  
+
+    

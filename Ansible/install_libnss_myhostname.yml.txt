@@ -1,0 +1,14 @@
+---
+# Ansible playbook. Installs package libnss-myhostname and edits nsswitch.conf
+# The below hosts value needs to be set accordingly. I have set local to test on my local machine127.0.0.1
+- hosts: local
+
+  tasks:
+    - name: Install libnss.
+      apt: pkg=libnss-myhostname state=installed
+    - name: Edit nsswitch.conf
+      lineinfile:
+       'dest=/etc/nsswitch.conf
+       regexp="^hosts"
+       line="hosts: files dns myhostname"
+       state=present'
