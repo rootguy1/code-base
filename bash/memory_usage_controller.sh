@@ -1,6 +1,6 @@
 #!/bin/bash
 # Author: Imran Ahmed <researcher6@live.com>
-# URL : www.experthelpme.com
+# URL : www.eaxiom.net
 # Description : This is a custom script which reboots the sever if the memory usage exeeds 95% usage.
 
 
