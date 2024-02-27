@@ -1,0 +1,3 @@
+#To show description of each flavor
+for i in `openstack flavor list | cut -d"+" -f1 | sed '1,3d' | cut -d"|" -f3`;do openstack flavor show $i ;done
+
