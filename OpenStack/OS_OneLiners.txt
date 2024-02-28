@@ -2,3 +2,7 @@
 for i in `openstack flavor list | cut -d"+" -f1 | sed '1,3d' | cut -d"|" -f3`;do openstack flavor show $i ;done
 # List VMs and Hosts 
 nova list --all --field name,instance_name,host,status,flavor:ram,flavor:vcpus
+# Verify cpu policy on computes
+salt -E "*compute*" cmd.run "sudo grep -i 'allowed' /proc/self/status"
+
+
