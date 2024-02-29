@@ -6,5 +6,7 @@ for i in `openstack flavor list | cut -d"+" -f1 | sed '1,3d' | cut -d"|" -f3`;do
 nova list --all --field name,instance_name,host,status,flavor:ram,flavor:vcpus
 # Verify cpu policy on computes
 salt  "*compute*" cmd.run "grep -i 'allowed' /proc/self/status"
+# Show Flavor used by each VM (server)
+openstack server list --all-projects |sed '1,2d' |  sed '/^+/d' | cut -d"|" -f3,7
 
 
