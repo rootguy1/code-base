@@ -1,5 +1,8 @@
+#Generic Linux 
 #Replace spaces in file names with underscore '_'
 for f in *\ *; do mv "$f" "${f// /_}"; done
+
+#OpenStack
 #To show description of each flavor
 for i in `openstack flavor list | cut -d"+" -f1 | sed '1,3d' | cut -d"|" -f3`;do openstack flavor show $i ;done
 # List VMs and Hosts 
@@ -8,5 +11,21 @@ nova list --all --field name,instance_name,host,status,flavor:ram,flavor:vcpus
 salt  "*compute*" cmd.run "grep -i 'allowed' /proc/self/status"
 # Show Flavor used by each VM (server)
 openstack server list --all-projects |sed '1,2d' |  sed '/^+/d' | cut -d"|" -f3,7
+for i in `openstack aggregate list --long | sed '1,3d' | cut -d"|" -f3 | sed "/^+/d"` ; do openstack aggregate show $i ; done
+for i in `openstack server group list --all-projects | sed '1,3d' | cut -d"|" -f2 | sed "/^+/d"` ; do openstack server group show $i ; done
+
+salt "*compu*" cmd.run "lscpu -ae"
+openstack aggregate list --long
+openstack availability zone list
+openstack server group list --all-projects
+
+
+#Situation Specific
+cat CBIS_Live_DC1_os_server_list_flavor.txt | grep CMM0030 | cut -d"|" -f3,7 | cut -d"|" -f2 | sort |uniq
+cat Flavorlist.txt  |cut -d"|" -f3,4,7 | grep CMM0030
+for i in `cat CBIS_Live_DC1_os_server_list_flavor.txt | grep CMM0030 | cut -d"|" -f3,7 | cut -d"|" -f2 | sort |uniq` ; do grep $i Flavorlist.txt ; done | cut -d"|" -f3,4,7
+###Not Tested## for i in `openstack availability zone list | sed '1,3d' | cut -d"|" -f2 | sed "/^+/d"` ; do openstack availability zone show $i ; done
+
+
 
 
